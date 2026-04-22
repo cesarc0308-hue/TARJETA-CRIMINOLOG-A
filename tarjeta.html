@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generador de Tarjeta</title>
+<style>
+body { font-family: Arial; text-align: center; }
+.card { border:1px solid #ccc; padding:20px; width:300px; margin:auto; }
+img { width:150px; }
+</style>
+</head>
+
+<body>
+
+<h2>Llena tu información</h2>
+
+<input id="nombre" placeholder="Nombre"><br><br>
+<input id="edad" placeholder="Edad"><br><br>
+<input id="sangre" placeholder="Tipo de sangre"><br><br>
+<input id="alergias" placeholder="Alergias"><br><br>
+<input id="condiciones" placeholder="Condiciones"><br><br>
+<input id="ubicacion" placeholder="Ubicación"><br><br>
+<input type="file" id="foto"><br><br>
+
+<button onclick="generar()">Generar</button>
+
+<div id="resultado"></div>
+
+<script>
+function generar() {
+  let nombre = document.getElementById("nombre").value;
+  let edad = document.getElementById("edad").value;
+  let sangre = document.getElementById("sangre").value;
+  let alergias = document.getElementById("alergias").value;
+  let condiciones = document.getElementById("condiciones").value;
+  let ubicacion = document.getElementById("ubicacion").value;
+
+  let foto = document.getElementById("foto").files[0];
+  let reader = new FileReader();
+
+  reader.onload = function(e) {
+    document.getElementById("resultado").innerHTML = `
+      <div class="card">
+        <img src="${e.target.result}">
+        <h2>${nombre}</h2>
+        <p>${edad} años</p>
+        <p><b>Tipo de sangre:</b> ${sangre}</p>
+        <p><b>Alergias:</b> ${alergias}</p>
+        <p><b>Condiciones:</b> ${condiciones}</p>
+        <p><b>Ubicación:</b> ${ubicacion}</p>
+      </div>
+    `;
+  }
+
+  if (foto) {
+    reader.readAsDataURL(foto);
+  }
+}
+</script>
+
+</body>
+</html>
